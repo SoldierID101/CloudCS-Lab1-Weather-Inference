@@ -74,4 +74,8 @@ async def predictions(
     # instance.dict() превращает Pydantic-модель в обычный словарь
     # load_model(model_path) загружает pipeline из файла
     # make_inference(...) выполняет предсказание
-    return make_inference(load_model(model_path), instance.dict())
+    model = load_model(model_path)
+    return make_inference(
+        model,
+        instance.dict()
+    )
