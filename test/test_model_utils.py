@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import pytest
 import pandas as pd
 from model_utils import make_inference, load_model
@@ -36,13 +37,10 @@ def test_make_inference(monkeypatch, create_data):
         }
         return [27.8]
 
-
     in_model = Pipeline([])
-
 
     # Подменяем predict у Pipeline тестовой функцией
     monkeypatch.setattr(Pipeline, "predict", mock_get_predictions)
-
 
     result = make_inference(in_model, create_data)
     assert result == {"temperature": 27.8}

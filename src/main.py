@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import os
 from model_utils import load_model, make_inference
 from fastapi import Depends, FastAPI, HTTPException, status
@@ -24,16 +25,13 @@ class Instance(BaseModel):
 # Создаем экземпляр FastAPI-приложения
 app = FastAPI()
 
-
 # Настраиваем схему авторизации через Bearer Token.
 # tokenUrl здесь нужен Swagger/FastAPI для описания безопасности.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth")
 
-
 # Читаем путь к модели из переменной окружения.
 # Это удобно: один и тот же код можно запускать с разными моделями.
 model_path: str = os.getenv("MODEL_PATH")
-
 
 # Если путь не передан, сервис не должен запускаться.
 if model_path is None:

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import pandas as pd
 import joblib
 from sklearn.pipeline import Pipeline
@@ -13,7 +14,6 @@ def make_inference(in_model: Pipeline, in_data: dict) -> dict[str, float]:
     # Преобразуем словарь в DataFrame из одной строки.
     # Именно в таком формате pipeline получает входные признаки.
     temperature = in_model.predict(pd.DataFrame(in_data, index=[0]))[0]
-
 
     # Округляем результат до 3 знаков после запятой,
     # чтобы ответ выглядел аккуратно.

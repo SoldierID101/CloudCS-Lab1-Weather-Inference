@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -12,20 +13,16 @@ def init_test_client(monkeypatch) -> TestClient:
     def mock_make_inference(*args, **kwargs) -> dict[str, float]:
         return {"temperature": 27.5}
 
-
     # Фейковая загрузка модели: ничего не делает
     def mock_load_model(*args, **kwargs) -> None:
         return None
 
-
     # Подставляем фиктивный путь к модели
     monkeypatch.setenv("MODEL_PATH", "faked/model.pkl")
-
 
     # Подменяем реальные функции моками
     monkeypatch.setattr("model_utils.make_inference", mock_make_inference)
     monkeypatch.setattr("model_utils.load_model", mock_load_model)
-
 
     # Импортируем приложение и создаем тестовый HTTP-клиент
     from main import app
